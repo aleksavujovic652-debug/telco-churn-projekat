@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}O projektu | Telco Churn{% endblock %}
+
+{% block content %}
+
+<h1>O projektu</h1>
+
+<section class="card">
+    <h2>Tema projekta</h2>
+
+    <p>
+        Tema projekta je predikcija churn-a korisnika u telekom kompaniji.
+        Churn označava situaciju kada korisnik napusti uslugu ili prestane da koristi
+        proizvode kompanije.
+    </p>
+
+    <p>
+        Aplikacija odgovara na pitanje:
+    </p>
+
+    <blockquote>
+        Koji korisnici su u najvećem riziku da napuste kompaniju?
+    </blockquote>
+</section>
+
+<section class="card">
+    <h2>Dataset</h2>
+
+    <p>
+        U projektu se koristi Telco Customer Churn dataset.
+        Dataset sadrži podatke o korisnicima, tipu ugovora, trajanju korišćenja usluge,
+        internet uslugama, načinu plaćanja, mjesečnim troškovima i informaciju da li je
+        korisnik napustio kompaniju.
+    </p>
+</section>
+
+<section class="card">
+    <h2>Korišćene metode</h2>
+
+    <ul>
+        <li>Obrada i čišćenje podataka</li>
+        <li>Train/test podjela podataka</li>
+        <li>OneHotEncoder za kategorijske podatke</li>
+        <li>StandardScaler za numeričke podatke</li>
+        <li>XGBoost klasifikator</li>
+        <li>Predikcija churn vjerovatnoće</li>
+        <li>Jednostavno objašnjenje rizičnih faktora</li>
+        <li>ROI analiza retention kampanje</li>
+    </ul>
+</section>
+
+<section class="card">
+    <h2>Poslovna vrijednost</h2>
+
+    <p>
+        Sistem pomaže kompaniji da ranije prepozna korisnike koji su u riziku i da im
+        ponudi odgovarajuću retention akciju. Na taj način kompanija može smanjiti broj
+        korisnika koji odlaze i smanjiti očekivani finansijski gubitak.
+    </p>
+</section>
+
+<section class="card">
+    <h2>Moguća poboljšanja</h2>
+
+    <ul>
+        <li>Implementacija SHAP objašnjenja za svaku predikciju</li>
+        <li>Dodavanje naprednijeg uplift modelinga</li>
+        <li>Precizniji ROI model sa stvarnim troškovima kampanja</li>
+        <li>Deploy aplikacije na cloud platformu</li>
+        <li>Dodavanje grafikona i interaktivnog dashboard-a</li>
+    </ul>
+</section>
+
+{% endblock %}

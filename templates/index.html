@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Početna | Telco Churn{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div>
+        <h1>Predikcija churn-a korisnika</h1>
+        <h2>„Ko će nas napustiti?“</h2>
+
+        <p>
+            Ova aplikacija koristi Telco Customer Churn dataset i machine learning model
+            za procjenu vjerovatnoće da korisnik napusti telekom kompaniju.
+        </p>
+
+        <div class="hero-actions">
+            <a class="btn primary" href="{{ url_for('dashboard') }}">Otvori dashboard</a>
+            <a class="btn secondary" href="{{ url_for('korisnici') }}">Pogledaj rizične korisnike</a>
+        </div>
+    </div>
+
+    <div class="hero-card">
+        <h3>Šta aplikacija radi?</h3>
+        <ul>
+            <li>Predviđa churn rizik korisnika</li>
+            <li>Rangira korisnike po vjerovatnoći odlaska</li>
+            <li>Prikazuje razloge za rizik</li>
+            <li>Predlaže retention akciju</li>
+            <li>Računa očekivani gubitak i ROI</li>
+        </ul>
+    </div>
+</section>
+
+<section class="grid-3">
+    <div class="card">
+        <h3>ML model</h3>
+        <p>
+            Model koristi XGBoost klasifikator za predikciju vjerovatnoće churn-a.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>Business logika</h3>
+        <p>
+            Pored predikcije, aplikacija računa očekivani gubitak i preporučuje akciju.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>Objašnjenje</h3>
+        <p>
+            Za svakog korisnika prikazuju se faktori koji mogu povećati rizik odlaska.
+        </p>
+    </div>
+</section>
+
+{% endblock %}

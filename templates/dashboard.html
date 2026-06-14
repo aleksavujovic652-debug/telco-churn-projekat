@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Telco Churn{% endblock %}
+
+{% block content %}
+
+<h1>Dashboard</h1>
+<p class="subtitle">
+    Pregled osnovnih pokazatelja, churn rizika i očekivanog efekta retention kampanje.
+</p>
+
+<section class="metrics">
+    <div class="metric-card">
+        <span>Broj korisnika</span>
+        <strong>{{ info.broj_korisnika }}</strong>
+    </div>
+
+    <div class="metric-card">
+        <span>Churn korisnici</span>
+        <strong>{{ info.broj_churn_yes }}</strong>
+    </div>
+
+    <div class="metric-card">
+        <span>Churn rate</span>
+        <strong>{{ (info.churn_rate * 100) | round(2) }}%</strong>
+    </div>
+
+    <div class="metric-card">
+        <span>Prosječan mjesečni trošak</span>
+        <strong>{{ prosjecni_mjesecni_trosak }}</strong>
+    </div>
+
+    <div class="metric-card">
+        <span>Prosječan tenure</span>
+        <strong>{{ prosjecni_tenure }}</strong>
+    </div>
+</section>
+
+<section class="grid-3">
+    <div class="card risk-high">
+        <h3>Visok rizik</h3>
+        <p class="big-number">{{ broj_visok_rizik }}</p>
+    </div>
+
+    <div class="card risk-medium">
+        <h3>Srednji rizik</h3>
+        <p class="big-number">{{ broj_srednji_rizik }}</p>
+    </div>
+
+    <div class="card risk-low">
+        <h3>Nizak rizik</h3>
+        <p class="big-number">{{ broj_nizak_rizik }}</p>
+    </div>
+</section>
+
+<section class="card">
+    <h2>ROI summary za top 100 rizičnih korisnika</h2>
+
+    <div class="metrics small">
+        <div class="metric-card">
+            <span>Broj korisnika</span>
+            <strong>{{ roi_summary.broj_korisnika }}</strong>
+        </div>
+
+        <div class="metric-card">
+            <span>Očekivani gubitak</span>
+            <strong>{{ roi_summary.ukupni_ocekivani_gubitak }}</strong>
+        </div>
+
+        <div class="metric-card">
+            <span>Trošak akcija</span>
+            <strong>{{ roi_summary.ukupni_trosak_akcija }}</strong>
+        </div>
+
+        <div class="metric-card">
+            <span>Očekivana korist</span>
+            <strong>{{ roi_summary.ukupna_ocekivana_korist }}</strong>
+        </div>
+
+        <div class="metric-card">
+            <span>Neto korist</span>
+            <strong>{{ roi_summary.neto_korist }}</strong>
+        </div>
+
+        <div class="metric-card">
+            <span>Prosječan ROI</span>
+            <strong>{{ roi_summary.prosjek_roi }}</strong>
+        </div>
+    </div>
+</section>
+
+<section class="card">
+    <h2>Top 10 najrizičnijih korisnika</h2>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Korisnik</th>
+                    <th>Churn rizik</th>
+                    <th>Nivo rizika</th>
+                    <th>Očekivani gubitak</th>
+                    <th>Ugovor</th>
+                    <th>Mjesečni trošak</th>
+                    <th>Detalji</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for k in top_rizicni %}
+                <tr>
+                    <td>{{ k.customerID }}</td>
+                    <td>{{ k.churn_percent }}%</td>
+                    <td>{{ k.risk_level }}</td>
+                    <td>{{ k.expected_loss }}</td>
+                    <td>{{ k.Contract }}</td>
+                    <td>{{ k.MonthlyCharges }}</td>
+                    <td>
+                        <a class="link" href="{{ url_for('detalji_korisnika', customer_id=k.customerID) }}">
+                            Otvori
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% endblock %}

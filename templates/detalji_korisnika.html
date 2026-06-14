@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Detalji korisnika | Telco Churn{% endblock %}
+
+{% block content %}
+
+{% if korisnik is none %}
+
+<section class="card">
+    <h1>Korisnik nije pronađen</h1>
+    <p>{{ kratko_objasnjenje }}</p>
+    <a class="btn secondary" href="{{ url_for('korisnici') }}">Nazad na listu korisnika</a>
+</section>
+
+{% else %}
+
+<h1>Detalji korisnika: {{ korisnik.customerID }}</h1>
+
+<section class="metrics">
+    <div class="metric-card">
+        <span>Churn rizik</span>
+        <strong>{{ korisnik.churn_percent }}%</strong>
+    </div>
+
+    <div class="metric-card">
+        <span>Nivo rizika</span>
+        <strong>{{ korisnik.risk_level }}</strong>
+    </div>
+
+    <div class="metric-card">
+        <span>Očekivani gubitak</span>
+        <strong>{{ korisnik.expected_loss }}</strong>
+    </div>
+
+    <div class="metric-card">
+        <span>Retention ROI</span>
+        <strong>{{ korisnik.retention_roi }}</strong>
+    </div>
+</section>
+
+<section class="grid-2">
+    <div class="card">
+        <h2>Osnovni podaci</h2>
+
+        <table class="details-table">
+            <tr>
+                <td>Pol</td>
+                <td>{{ korisnik.gender }}</td>
+            </tr>
+            <tr>
+                <td>SeniorCitizen</td>
+                <td>{{ korisnik.SeniorCitizen }}</td>
+            </tr>
+            <tr>
+                <td>Partner</td>
+                <td>{{ korisnik.Partner }}</td>
+            </tr>
+            <tr>
+                <td>Dependents</td>
+                <td>{{ korisnik.Dependents }}</td>
+            </tr>
+            <tr>
+                <td>Tenure</td>
+                <td>{{ korisnik.tenure }}</td>
+            </tr>
+            <tr>
+                <td>Ugovor</td>
+                <td>{{ korisnik.Contract }}</td>
+            </tr>
+            <tr>
+                <td>Internet usluga</td>
+                <td>{{ korisnik.InternetService }}</td>
+            </tr>
+            <tr>
+                <td>Način plaćanja</td>
+                <td>{{ korisnik.PaymentMethod }}</td>
+            </tr>
+            <tr>
+                <td>Mjesečni trošak</td>
+                <td>{{ korisnik.MonthlyCharges }}</td>
+            </tr>
+            <tr>
+                <td>Ukupni trošak</td>
+                <td>{{ korisnik.TotalCharges }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Objašnjenje predikcije</h2>
+
+        <p class="highlight">
+            {{ kratko_objasnjenje }}
+        </p>
+
+        <h3>Najvažniji faktori rizika</h3>
+
+        <ul>
+            {% for razlog in razlozi %}
+                <li>{{ razlog }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Preporučena akcija</h3>
+        <p class="action-box">{{ akcija }}</p>
+    </div>
+</section>
+
+<section class="card">
+    <h2>ROI retention akcije</h2>
+
+    <div class="metrics small">
+        <div class="metric-card">
+            <span>Trošak akcije</span>
+            <strong>{{ korisnik.action_cost }}</strong>
+        </div>
+
+        <div class="metric-card">
+            <span>Očekivana korist</span>
+            <strong>{{ korisnik.expected_benefit }}</strong>
+        </div>
+
+        <div class="metric-card">
+            <span>ROI</span>
+            <strong>{{ korisnik.retention_roi }}</strong>
+        </div>
+    </div>
+</section>
+
+<a class="btn secondary" href="{{ url_for('korisnici') }}">Nazad na listu korisnika</a>
+
+{% endif %}
+
+{% endblock %}

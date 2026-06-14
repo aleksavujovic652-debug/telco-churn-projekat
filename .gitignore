@@ -1,0 +1,38 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Flask
+instance/
+.env
+.flaskenv
+
+# Model files
+modeli/*.pkl
+modeli/*.joblib
+
+# Large data files
+podaci/*.zip
+
+# Do not upload temporary files
+*.tmp
+*.bak
+
+# VS Code
+.vscode/

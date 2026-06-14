@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Rizični korisnici | Telco Churn{% endblock %}
+
+{% block content %}
+
+<h1>Rizični korisnici</h1>
+<p class="subtitle">
+    Rangirana lista korisnika prema vjerovatnoći odlaska iz kompanije.
+</p>
+
+<section class="card">
+    <h2>Filteri</h2>
+
+    <form method="get" class="filter-form">
+        <div>
+            <label>Minimalni churn rizik (%)</label>
+            <input type="number" name="min_rizik" value="{{ min_rizik }}" min="0" max="100">
+        </div>
+
+        <div>
+            <label>Tip ugovora</label>
+            <select name="ugovor">
+                {% for u in ugovori %}
+                    <option value="{{ u }}" {% if u == ugovor %}selected{% endif %}>{{ u }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Internet usluga</label>
+            <select name="internet">
+                {% for i in internet_usluge %}
+                    <option value="{{ i }}" {% if i == internet %}selected{% endif %}>{{ i }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Broj rezultata</label>
+            <input type="number" name="limit" value="{{ limit }}" min="10" max="500">
+        </div>
+
+        <button class="btn primary" type="submit">Primijeni filter</button>
+    </form>
+
+    <p class="result-info">
+        Broj korisnika koji odgovaraju filteru: <strong>{{ broj_rezultata }}</strong>
+    </p>
+</section>
+
+<section class="card">
+    <h2>Lista korisnika</h2>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Korisnik</th>
+                    <th>Churn rizik</th>
+                    <th>Nivo rizika</th>
+                    <th>Očekivani gubitak</th>
+                    <th>Tenure</th>
+                    <th>Ugovor</th>
+                    <th>Internet</th>
+                    <th>Mjesečni trošak</th>
+                    <th>Reasoning</th>
+                    <th>Preporučena akcija</th>
+                    <th>Detalji</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for k in korisnici %}
+                <tr>
+                    <td>{{ k.customerID }}</td>
+                    <td>{{ k.churn_percent }}%</td>
+                    <td>
+                        <span class="badge">
+                            {{ k.risk_level }}
+                        </span>
+                    </td>
+                    <td>{{ k.expected_loss }}</td>
+                    <td>{{ k.tenure }}</td>
+                    <td>{{ k.Contract }}</td>
+                    <td>{{ k.InternetService }}</td>
+                    <td>{{ k.MonthlyCharges }}</td>
+                    <td>{{ k.reasoning }}</td>
+                    <td>{{ k.recommended_action }}</td>
+                    <td>
+                        <a class="link" href="{{ url_for('detalji_korisnika', customer_id=k.customerID) }}">
+                            Otvori
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% endblock %}
